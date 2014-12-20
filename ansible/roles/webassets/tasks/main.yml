@@ -1,0 +1,52 @@
+---
+- name: webassets | add node apt repository
+  apt_repository:
+    repo: "ppa:chris-lea/node.js-legacy"
+  sudo: yes
+
+- name: webassets | install node and npm
+  apt:
+    name: "{{ item }}"
+    state: present
+  sudo: yes
+  with_items:
+    - nodejs
+    - npm
+
+- name: webassets | hack node bin
+  file:
+    src: /usr/bin/nodejs
+    dest: /usr/bin/node
+    state: link
+  sudo: yes
+
+- name: webassets | set node config path prefix
+  shell: npm config set prefix "/home/{{ user }}/npm"
+
+- name: webassets | add node bin to PATH
+  lineinfile:
+    state: present
+    line: "export PATH=$PATH:/home/{{ user }}/npm/bin"
+    dest: "/home/{{ user }}/.bashrc"
+
+- name: webassets | install assets packages
+  npm:
+    name: "{{ item.name }}"
+    version: "{{ item.version }}"
+    path: "{{ node_dir }}"
+  with_items:
+    - { name: "less", version: "1.7.5" }
+    - { name: "chokidar", version: "0.12.1" }
+    - { name: "webpack", version: "1.4.13" }
+    - { name: "style-loader", version: "0.8.2" }
+    - { name: "css-loader", version: "0.9.0" }
+    - { name: "less-loader", version: "0.7.8" }
+    - { name: "extract-text-webpack-plugin", version: "0.3.5" }
+    - { name: "raw-loader", version: "0.5.1" }
+
+- name: deploy | create node_modules symlink
+  file:
+    state: link
+    src: "{{ node_dir }}/node_modules"
+    dest: "{{ app_dir }}/node_modules"
+  when: app_debug_mode

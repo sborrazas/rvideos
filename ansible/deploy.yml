@@ -1,0 +1,10 @@
+---
+- hosts: staging:production
+  remote_user: "{{ user }}"
+  sudo_user: "{{ user }}"
+  vars:
+    node_dir: "/home/{{ user }}"
+    base_dir: "{{ app_dir | dirname }}"
+    repo_version: "master"
+  roles:
+    - role: deploy

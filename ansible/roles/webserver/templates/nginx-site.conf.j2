@@ -1,0 +1,35 @@
+server {
+  server_name {{ app_domain }} 127.0.0.1;
+
+  error_page 500 /500.html;
+  proxy_intercept_errors off;
+
+  listen 80;
+  access_log "/var/log/nginx/{{ app_name }}.log";
+  error_log "/var/log/nginx/{{ app_name }}-error.log";
+
+  root "{{ app_dir }}/public/";
+  {% if app_debug_mode %}
+  sendfile off;
+  {% endif %}
+
+  keepalive_timeout 5;
+  client_max_body_size 20m;
+  add_header Vary Accept;
+
+  gzip             on;
+  gzip_min_length  1000;
+  gzip_proxied     expired no-cache no-store private auth;
+  gzip_types       text/plain application/xml application/x-javascript application/javascript text/css;
+  gzip_disable     "MSIE [1-6]\.";
+  gzip_vary        on;
+
+  error_page 502 /502.html;
+  location /502.html {
+    root "{{ app_dir }}/public/";
+  }
+  error_page 404 /404.html;
+  location /404.html {
+    root "{{ app_dir }}/public/";
+  }
+}

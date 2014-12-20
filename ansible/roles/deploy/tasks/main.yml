@@ -1,0 +1,44 @@
+---
+- set_fact:
+    release_version: "{{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+
+- set_fact:
+    release_path:
+      "{% if app_debug_mode %}{{ app_dir }}{% else %}{{ base_dir }}/releases/{{ release_version }}{% endif %}"
+
+- name: deploy | make sure base folder exists
+  file:
+    state: directory
+    recurse: yes
+    path: "{{ base_dir }}"
+  sudo: yes
+
+- name: deploy | make sure releases folder exists
+  file:
+    state: directory
+    recurse: yes
+    path: "{{ base_dir }}/releases"
+
+- name: deploy | clone repo
+  git:
+    repo: "{{ repo }}"
+    dest: "{{ release_path }}"
+    version: "{{ repo_version }}"
+    accept_hostkey: yes
+
+- name: deploy | create node_modules symlink
+  file:
+    state: link
+    src: "{{ node_dir }}/node_modules"
+    dest: "{{ release_path }}/node_modules"
+
+- name: compile assets
+  shell: 'node assets/compile.js'
+  args:
+    chdir: "{{ release_path }}"
+
+- name: create symlink to /current
+  file:
+    state: link
+    src: "{{ release_path }}"
+    dest: "{{ app_dir }}"

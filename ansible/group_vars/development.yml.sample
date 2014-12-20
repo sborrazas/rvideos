@@ -1,0 +1,8 @@
+---
+server_type: "development"
+user: "vagrant"
+app_dir: "/vagrant"
+app_debug_mode: yes
+ssl_enabled: no
+app_url: "http://localhost:9393"
+app_domain: "localhost"
