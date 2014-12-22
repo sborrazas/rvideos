@@ -5,4 +5,34 @@
   position: absolute;
   right: 0;
   top: 0;
+  z-index: @videoPlayer--zIndex;
+}
+
+.videoPlayer-player {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.videoPlayer-controls {
+  bottom: 20px;
+  position: absolute;
+  width: 100%;
+  z-index: @videoPlayer-controls--zIndex;
+}
+
+.videoPlayer-controlsList {
+  background: @videoPlayer-controlsList--backgroundColor;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.videoPlayer-control {
+  border: 1px solid red;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 10px;
+  padding: 20px;
 }
