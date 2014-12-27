@@ -6,8 +6,6 @@
 
 - hosts: all
   remote_user: "{{ user }}"
-  vars:
-    node_dir: "/home/{{ user }}"
   roles:
     - role: common
     - role: webserver
@@ -17,7 +15,6 @@
   remote_user: "{{ user }}"
   sudo_user: "{{ user }}"
   vars:
-    node_dir: "/home/{{ user }}"
     base_dir: "{{ app_dir | dirname }}"
     repo_version: "master"
   roles:
