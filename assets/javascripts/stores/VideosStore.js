@@ -2,7 +2,7 @@ var object = require("../utils/object.js")
   , AppDispatcher = require("../dispatchers/AppDispatcher.js")
   , VIEW_ACTIONS = require("../config/constants.js").VIEW_ACTIONS
   , Store = require("../utils/Store.js")
-  , Playlists = require("./collections/Playlists.js")
+  , PlaylistsManager = require("./collections/PlaylistsManager.js")
   , store = new Store(AppDispatcher);
 
 object.extends(store, {
@@ -21,7 +21,7 @@ object.extends(store, {
   removeOnChangeListener: function (callback) {
     this.off("change", callback);
   },
-  _playlists: new Playlists(),
+  _playlists: new PlaylistsManager(),
   _isLoading: false,
   _isPaused: false,
   _dispatcherToken: AppDispatcher.register(function (payload) {

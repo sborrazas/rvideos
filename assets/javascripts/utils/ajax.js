@@ -45,7 +45,7 @@ module.exports = {
       params = params || {};
       params.callback = callbackName;
 
-      url = serializer.encodeURL(url, params);
+      url = serializer.generateURL(url, params);
 
       window[callbackName] = function (data) {
         if (options.globalName) {

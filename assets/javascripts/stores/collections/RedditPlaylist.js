@@ -1,4 +1,4 @@
-var Base = require("./Base.js")
+var BasePlaylist = require("./BasePlaylist.js")
   , classes = require("../../utils/classes.js")
   , ajax = require("../../utils/ajax.js")
   , collection = require("../../utils/collection.js")
@@ -7,7 +7,7 @@ var Base = require("./Base.js")
   , settings = require("../../config/settings.js")
   , Promise = require("../../utils/Promise.js");
 
-module.exports = classes.declare(Base, {
+module.exports = classes.declare(BasePlaylist, {
   initialize: function (subreddit) {
     this._items = [];
     this._subreddit = subreddit;
@@ -35,7 +35,7 @@ module.exports = classes.declare(Base, {
   },
   _loadNext: function () {
     var self = this
-      , subredditURL = sprintf(settings.SUBREDDIT_URL, this._subreddit)
+      , subredditURL = sprintf(settings.SUBREDDIT_URL, self._subreddit)
       , params = { limit: settings.VIDEOS_PRELOAD_COUNT }
       , videos = null;
 
@@ -43,39 +43,18 @@ module.exports = classes.declare(Base, {
       params.after = self._afterToken;
     }
 
-    videos = ajax.get(serializer.encodeURL(subredditURL, params));
+    videos = ajax.get(serializer.generateURL(subredditURL, params));
 
-    return videos.then(function (videosData) {
-      self._afterToken = videosData.data.after;
+    return videos.then(function (response) {
+      self._afterToken = response.data.after;
 
-      return self._filterVideos(videosData.data.children);
-    }).then(function (newVideos) {
-      self._items = self._items.concat(newVideos);
+      return self._filterVideos(response.data.children);
     });
   },
-  _filterVideos: function (videosData) {
-    var videos = [];
-
-    collection.each(videosData, function (_, videoData) {
-      videoData = videoData.data;
-
-      collection.each(settings.VIDEO_PROVIDERS, function (_, matchInfo) {
-        var match = videoData.url.match(matchInfo.pattern);
-
-        if (match) {
-          videos.push({
-            id: videoData.name,
-            title: videoData.title,
-            url: videoData.url,
-            provider: matchInfo.provider,
-            providerID: match[1]
-          });
-
-          return false;
-        }
-      });
-    });
-
-    return videos;
+  _formatVideo: function (videoData) {
+    return {
+      title: videoData.data.title,
+      url: videoData.data.url
+    };
   }
 });

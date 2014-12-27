@@ -1,8 +1,10 @@
 module.exports = {
-  DEFAULT_SUBREDDIT: "videos",
+  VIDEOS_SUBREDDIT: "videos",
   REDDIT_URL: "http://www.reddit.com",
   SUBREDDIT_URL: "http://www.reddit.com/r/%s.json",
   VIDEOS_PRELOAD_COUNT: 10,
+  GOOGLE_FEED_API_URL: "http://ajax.googleapis.com/ajax/services/feed/load",
+  YOUTUBE_FEED_URL: "http://gdata.youtube.com/feeds/api/standardfeeds/most_popular",
   VIDEO_PROVIDERS: [
     {
       provider: "youtube",
