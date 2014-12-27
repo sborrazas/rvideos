@@ -1,4 +1,14 @@
-@import url(http://fonts.googleapis.com/css?family=Merriweather);
+@import url("http://fonts.googleapis.com/css?family=Merriweather");
+@font-face {
+	font-family: "icomoon";
+	src:url("/fonts/icomoon.eot?-479dum");
+	src:url("/fonts/icomoon.eot?#iefix-479dum") format("embedded-opentype"),
+		url("/fonts/icomoon.woff?-479dum") format("woff"),
+		url("/fonts/icomoon.ttf?-479dum") format("truetype"),
+		url("/fonts/icomoon.svg?-479dum#icomoon") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
 
 /* fonts */
 @font-1: "Merriweather", serif;
@@ -50,12 +60,13 @@
 
 /* colors definition */
 @color-1: rgba(255, 255, 255, 0.9); /* White */
-@color-2: rgba(0, 0, 0, 0.9); /* Black */
+@color-2: rgb(0, 0, 0); /* Black */
+@color-3: rgba(0, 0, 0, 0.7); /* Transparent black */
 
 /* colors application */
 @base--color: @color-1;
 @base--backgroundColor: @color-2;
-@videoPlayer-controlsList--backgroundColor: @color-2;
+@videoPlayer-controlsList--backgroundColor: @color-3;
 
 /* misc */
 @base--backgroundImage: "/images/background.jpg";
