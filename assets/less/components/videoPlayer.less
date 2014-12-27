@@ -2,6 +2,7 @@
 .videoPlayer {
   bottom: 0;
   left: 0;
+  overflow: hidden;
   position: absolute;
   right: 0;
   top: 0;
@@ -16,23 +17,30 @@
   top: 0;
 }
 
+.videoPlayer-player--vimeo {
+  top: -150px;
+}
+
 .videoPlayer-controls {
-  bottom: 20px;
+  bottom: 60px;
   position: absolute;
+  text-align: center;
   width: 100%;
   z-index: @videoPlayer-controls--zIndex;
 }
 
 .videoPlayer-controlsList {
+  .m-borderRadius(4px);
   background: @videoPlayer-controlsList--backgroundColor;
+  display: inline-block;
   margin: 0 auto;
   text-align: center;
 }
 
 .videoPlayer-control {
-  border: 1px solid red;
   cursor: pointer;
-  display: inline-block;
-  margin: 0 10px;
-  padding: 20px;
+  height: 50px;
+  font-size: 50px;
+  margin: 5px 10px;
+  width: 60px;
 }

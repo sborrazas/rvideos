@@ -2,7 +2,7 @@ var object = require("./object.js")
   , window = require("./window.js");
 
 module.exports = {
-  encodeQuery: function (params) {
+  generateQuery: function (params) {
     var query = [];
 
     object.each(params, function (key, val) {
@@ -11,11 +11,8 @@ module.exports = {
 
     return query.join("&");
   },
-  encodeURI: function (value) {
-    return window.encodeURIComponent(value);
-  },
-  encodeURL: function (url, params) {
-    var query = this.encodeQuery(params);
+  generateURL: function (url, params) {
+    var query = this.generateQuery(params);
 
     if (query.length > 0) {
       return url + "?" + query;
@@ -23,5 +20,8 @@ module.exports = {
     else {
       return url;
     }
+  },
+  encodeURI: function (value) {
+    return window.encodeURIComponent(value);
   }
 };

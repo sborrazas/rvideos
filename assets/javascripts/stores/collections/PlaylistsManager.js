@@ -21,6 +21,8 @@ module.exports = classes.declare(Base, {
     if (!this._playlists) {
       this._playlists = [
         new YoutubePlaylist()
+        // new RedditPlaylist(settings.VIDEOS_SUBREDDIT),
+        // new VimeoPlaylist(settings.VIMEO_CHANNEL)
       ];
     }
 

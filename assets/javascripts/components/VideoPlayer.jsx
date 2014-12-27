@@ -3,7 +3,8 @@ var React = require("react")
   , VideosStore = require("../stores/VideosStore.js")
   , VideoPlayerControls = require("./VideoPlayer/Controls.jsx")
   , PLAYERS_MAP = {
-      "youtube": require("./VideoPlayer/players/YoutubePlayer.jsx")
+      "youtube": require("./VideoPlayer/players/YoutubePlayer.jsx"),
+      "vimeo": require("./VideoPlayer/players/VimeoPlayer.jsx")
     };
 
 module.exports = React.createClass({

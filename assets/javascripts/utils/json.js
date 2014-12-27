@@ -1,3 +1,1 @@
-var window = require("./window.js");
-
-module.exports = window.JSON;
+module.exports = require("./window.js").JSON;
