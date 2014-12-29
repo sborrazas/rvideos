@@ -61,7 +61,7 @@ module.exports = classes.declare(EventEmitter, {
               }
             },
             onError: function () {
-              // TODO
+              self.emit("error");
             }
           }
         });

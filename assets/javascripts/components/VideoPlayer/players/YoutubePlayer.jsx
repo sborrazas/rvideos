@@ -25,6 +25,10 @@ module.exports = React.createClass({
         View.videoEnded();
       });
 
+      player.on("error", function () {
+        View.nextVideo();
+      });
+
       this._player = player;
     }
   },
