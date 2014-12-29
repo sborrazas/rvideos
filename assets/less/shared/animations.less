@@ -1,0 +1,18 @@
+/* anim_fadeIn ****************************************************************/
+.anim_fadeIn-enter {
+  .m-opacity(0);
+  .m-transition(opacity, 0.3s, ease-in);
+}
+
+.anim_fadeIn-enter-active {
+  .m-opacity(1);
+}
+
+.anim_fadeIn-leave {
+  .m-opacity(1);
+  .m-transition(opacity, 0.3s, ease-in);
+}
+
+.anim_fadeIn-leave-active {
+  .m-opacity(0);
+}

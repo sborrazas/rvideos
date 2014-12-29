@@ -31,7 +31,9 @@ module.exports = React.createClass({
       loader = (<div className="videoPlayer-loader">Loading...</div>);
     }
     else {
-      controls = (<VideoPlayerControls isPaused={this.state.isPaused} />);
+      controls = (
+        <VideoPlayerControls isPaused={this.state.isPaused} ref="controls" />
+      );
     }
 
     if (video) {
@@ -45,6 +47,9 @@ module.exports = React.createClass({
 
     return (
       <div className="videoPlayer">
+        <div className="videoPlayer-screen" onMouseMove={this._showControls}
+             onTouchStart={this._showControls}></div>
+
         {player}
         {controls}
         {loader}
@@ -57,5 +62,12 @@ module.exports = React.createClass({
       isLoading: VideosStore.isLoading(),
       isPaused: VideosStore.isPaused()
     });
+  },
+  _showControls: function () {
+    var controls = this.refs["controls"];
+
+    if (controls) {
+      controls.show();
+    }
   }
 });
