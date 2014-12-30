@@ -29,7 +29,7 @@ object.extends(store, {
 
     switch (action.actionType) {
       case VIEW_ACTIONS.INIT:
-        store._loadVideo();
+        store._next();
         break;
       case VIEW_ACTIONS.VIDEO_PLAYED:
         store._play();
@@ -59,7 +59,7 @@ object.extends(store, {
     self._isLoading = true;
     self.emit("change");
 
-    video = self._playlists.getCurrentPlaylist().getCurrentVideo();
+    video = self._playlists.getCurrentVideo();
 
     video.then(function (video) {
       self._currentVideo = video;
@@ -88,11 +88,11 @@ object.extends(store, {
     }
   },
   _next: function () {
-    this._playlists.getCurrentPlaylist().nextVideo();
+    this._playlists.nextVideo();
     this._loadVideo();
   },
   _prev: function () {
-    this._playlists.getCurrentPlaylist().prevVideo();
+    this._playlists.prevVideo();
     this._loadVideo();
   }
 });

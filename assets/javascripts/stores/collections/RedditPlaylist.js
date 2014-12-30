@@ -1,37 +1,15 @@
 var BasePlaylist = require("./BasePlaylist.js")
   , classes = require("../../utils/classes.js")
   , ajax = require("../../utils/ajax.js")
-  , collection = require("../../utils/collection.js")
   , sprintf = require("../../utils/sprintf.js")
   , serializer = require("../../utils/serializer.js")
-  , settings = require("../../config/settings.js")
-  , Promise = require("../../utils/Promise.js");
+  , settings = require("../../config/settings.js");
 
 module.exports = classes.declare(BasePlaylist, {
   initialize: function (subreddit) {
     this._items = [];
     this._subreddit = subreddit;
     this._currentVideoIndex = 0;
-  },
-  getCurrentVideo: function () {
-    var self = this;
-
-    if (self._currentVideoIndex < self.getSize()) {
-      return Promise.resolve(self._items[self._currentVideoIndex]);
-    }
-    else {
-      return self._loadNext().then(function () {
-        return self.getCurrentVideo();
-      });
-    }
-  },
-  nextVideo: function () {
-    this._currentVideoIndex += 1;
-  },
-  prevVideo: function () {
-    if (this._currentVideoIndex > 0) {
-      this._currentVideoIndex -= 1;
-    }
   },
   _loadNext: function () {
     var self = this

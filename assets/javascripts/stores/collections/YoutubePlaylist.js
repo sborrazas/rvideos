@@ -1,10 +1,8 @@
 var BasePlaylist = require("./BasePlaylist.js")
   , classes = require("../../utils/classes.js")
   , ajax = require("../../utils/ajax.js")
-  , collection = require("../../utils/collection.js")
   , serializer = require("../../utils/serializer.js")
   , settings = require("../../config/settings.js")
-  , Promise = require("../../utils/Promise.js")
   , Error = require("../../utils/Error.js");
 
 module.exports = classes.declare(BasePlaylist, {
@@ -12,26 +10,6 @@ module.exports = classes.declare(BasePlaylist, {
     this._items = [];
     this._currentVideoIndex = 0;
     this._currentPage = 1;
-  },
-  getCurrentVideo: function () {
-    var self = this;
-
-    if (self._currentVideoIndex < self.getSize()) {
-      return Promise.resolve(self._items[self._currentVideoIndex]);
-    }
-    else {
-      return self._loadNext().then(function () {
-        return self.getCurrentVideo();
-      });
-    }
-  },
-  nextVideo: function () {
-    this._currentVideoIndex += 1;
-  },
-  prevVideo: function () {
-    if (this._currentVideoIndex > 0) {
-      this._currentVideoIndex -= 1;
-    }
   },
   _loadNext: function () {
     var self = this
