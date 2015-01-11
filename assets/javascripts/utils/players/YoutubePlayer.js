@@ -56,7 +56,7 @@ module.exports = classes.declare(EventEmitter, {
           },
           events: {
             onStateChange: function (event) {
-              if (event.data === YT.PlayerState.Ended) {
+              if (event.data === YT.PlayerState.ENDED) {
                 self.emit("ended", event);
               }
             },
