@@ -30,9 +30,12 @@ module.exports = React.createClass({
     if (this.state.isLoading) {
       loader = (<div className="videoPlayer-loader">Loading...</div>);
     }
-    else {
+    else if (video) {
       controls = (
-        <VideoPlayerControls isPaused={this.state.isPaused} ref="controls" />
+        <div className="videoPlayer-controlsWrapper">
+          <VideoPlayerControls isPaused={this.state.isPaused} ref="controls"
+                               video={video} />
+        </div>
       );
     }
 

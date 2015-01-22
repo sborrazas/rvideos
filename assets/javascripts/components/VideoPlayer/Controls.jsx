@@ -13,19 +13,23 @@ module.exports = React.createClass({
   },
   render: function () {
     var playIcon = this.props.isPaused ? "play3" : "pause2"
+      , video = this.props.video
       , controls = null;
 
     if (this.state.visible) {
       controls = (
         <nav className="videoPlayer-controls" key="controls">
-          <div className="videoPlayer-controlsList">
-            <span className="videoPlayer-control icon icon--previous2"
-                  onClick={this._goPrev}></span>
-            <span className={"videoPlayer-control icon icon--" + playIcon}
-                  onClick={this._togglePlay}></span>
-            <span className="videoPlayer-control icon icon--next2"
-                  onClick={this._goNext}></span>
-          </div>
+          <span className="videoPlayer-control icon icon--previous2"
+                onClick={this._goPrev}></span>
+          <span className={"videoPlayer-control icon icon--" + playIcon}
+                onClick={this._togglePlay}></span>
+          <span className="videoPlayer-control icon icon--next2"
+                onClick={this._goNext}></span>
+          <a href={video.url} className="videoPlayer-title link" target="_blank">
+            {video.title}
+          </a>
+          <span className="videoPlayer-control icon icon--cog"
+                onClick={this._openSettings}></span>
         </nav>
       );
     }
@@ -73,5 +77,8 @@ module.exports = React.createClass({
     else {
       View.pauseVideo();
     }
+  },
+  _openSettings: function () {
+    console.log("Open Settings!");
   }
 });
