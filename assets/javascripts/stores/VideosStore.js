@@ -66,7 +66,7 @@ object.extends(store, {
     });
 
     video.catch(function (e) { // TODO: Better handling (alert message?)
-      alert("An error ocurred while trying to load videos from Reddit.");
+      alert("An error ocurred while trying to load the videos.");
     });
 
     video.fin(function () {
