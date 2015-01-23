@@ -26,8 +26,8 @@ module.exports = React.createClass({
     return (
       <iframe className="videoPlayer-player videoPlayer-player--vimeo"
               width="100%" height="100%" src={url} frameBorder="0"
-              webkitAllowFullscreen="1" mozAllowFullScreen="1"
-              allowFullScreen="1"></iframe>
+              webkitAllowFullscreen="0" mozAllowFullScreen="0"
+              allowFullScreen="0"></iframe>
     );
   },
   componentDidMount: function () {
@@ -43,8 +43,9 @@ module.exports = React.createClass({
       switch (data.event) {
         case "ready":
           self._playerReady = true;
+          self._subscribeToEvents();
           break;
-        case "finished":
+        case "finish":
           View.videoEnded();
           break;
       }
@@ -76,5 +77,8 @@ module.exports = React.createClass({
     }
 
     el.contentWindow.postMessage(JSON.stringify(data), url);
+  },
+  _subscribeToEvents: function () {
+    this._sendPlayerMessage("addEventListener", "finish");
   }
 });
