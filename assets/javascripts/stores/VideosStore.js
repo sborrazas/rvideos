@@ -46,6 +46,14 @@ object.extends(store, {
       case VIEW_ACTIONS.PREV_VIDEO:
         store._prev();
         break;
+      case VIEW_ACTIONS.TOGGLE_PLAY:
+        if (store.isPaused()) {
+          store._play();
+        }
+        else {
+          store._pause();
+        }
+        break;
     }
   }),
   _loadVideo: function () {

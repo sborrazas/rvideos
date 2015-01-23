@@ -31,5 +31,10 @@ module.exports = {
     AppDispatcher.handleViewAction({
       actionType: VIEW_ACTIONS.PREV_VIDEO
     });
+  },
+  togglePlay: function () {
+    AppDispatcher.handleViewAction({
+      actionType: VIEW_ACTIONS.TOGGLE_PLAY
+    });
   }
 };

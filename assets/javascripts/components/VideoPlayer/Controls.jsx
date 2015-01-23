@@ -70,12 +70,7 @@ module.exports = React.createClass({
     View.prevVideo();
   },
   _togglePlay: function () {
-    if (this.props.isPaused) {
-      View.playVideo();
-    }
-    else {
-      View.pauseVideo();
-    }
+    View.togglePlay();
   },
   _pauseVideo: function () {
     View.pauseVideo();
