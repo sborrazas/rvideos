@@ -2,7 +2,9 @@ var React = require("react")
   , VideoPlayer = require("./components/VideoPlayer.jsx")
   , registerComponent = require("./utils/dom/registerComponent.js")
   , global = require("./utils/dom/global.js")
-  , View = require("./services/View.js");
+  , VideosStore = require("./stores/VideosStore.js")
+  , View = require("./services/View.js")
+  , title = global.getTitle();
 
 registerComponent("videoPlayer", VideoPlayer);
 
@@ -18,4 +20,15 @@ global.onArrowRightPressed(function () {
 
 global.onSpacebarPressed(function () {
   View.togglePlay();
+});
+
+VideosStore.onChange(function () {
+  var video = VideosStore.getCurrentVideo();
+
+  if (video) {
+    global.setTitle([title, video.title].join(" — "));
+  }
+  else {
+    global.setTitle(title);
+  }
 });

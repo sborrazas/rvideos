@@ -27,5 +27,11 @@ module.exports = {
         callback(event);
       }
     });
+  },
+  getTitle: function () {
+    return document.title;
+  },
+  setTitle: function (title) {
+    document.title = title;
   }
 };
