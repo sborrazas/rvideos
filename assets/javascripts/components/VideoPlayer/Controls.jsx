@@ -25,11 +25,10 @@ module.exports = React.createClass({
                 onClick={this._togglePlay}></span>
           <span className="videoPlayer-control icon icon--next2"
                 onClick={this._goNext}></span>
-          <a href={video.url} className="videoPlayer-title link" target="_blank">
+          <a href={video.url} className="videoPlayer-title link" target="_blank"
+             onClick={this._pauseVideo} title={video.title}>
             {video.title}
           </a>
-          <span className="videoPlayer-control icon icon--cog"
-                onClick={this._openSettings}></span>
         </nav>
       );
     }
@@ -55,7 +54,7 @@ module.exports = React.createClass({
 
     if (!animation) {
       animation = throttler(function () {
-        if (self.didMount) {
+        if (self.didMount && !self.props.isPaused) {
           self.setState({ visible: false });
         }
       }, CONTROLS_DURATION_MS);
@@ -78,7 +77,7 @@ module.exports = React.createClass({
       View.pauseVideo();
     }
   },
-  _openSettings: function () {
-    console.log("Open Settings!");
+  _pauseVideo: function () {
+    View.pauseVideo();
   }
 });
