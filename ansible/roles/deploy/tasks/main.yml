@@ -3,42 +3,25 @@
     release_version: "{{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
 
 - set_fact:
-    release_path:
-      "{% if app_debug_mode %}{{ app_dir }}{% else %}{{ base_dir }}/releases/{{ release_version }}{% endif %}"
+    release_dir: "{{ base_dir }}/current"
 
-- name: deploy | make sure base folder exists
-  file:
-    state: directory
-    recurse: yes
-    path: "{{ base_dir }}"
-  sudo: yes
+- set_fact:
+    release_dir: "{{ base_dir }}/releases/{{ release_version }}"
+  tags:
+    - remote
 
-- name: deploy | make sure releases folder exists
-  file:
-    state: directory
-    recurse: yes
-    path: "{{ base_dir }}/releases"
+- include: remote-fetch.yml
+  tags:
+    - remote
 
-- name: deploy | clone repo
-  git:
-    repo: "{{ repo }}"
-    dest: "{{ release_path }}"
-    version: "{{ repo_version }}"
-    accept_hostkey: yes
+- include: assets.yml
+  tags:
+    - remote
 
-- name: deploy | create node_modules symlink
+- name: symlink to app directoy exists
   file:
     state: link
-    src: "{{ node_dir }}/node_modules"
-    dest: "{{ release_path }}/node_modules"
-
-- name: compile assets
-  shell: 'node assets/compile.js'
-  args:
-    chdir: "{{ release_path }}"
-
-- name: create symlink to /current
-  file:
-    state: link
-    src: "{{ release_path }}"
+    src: "{{ release_dir }}"
     dest: "{{ app_dir }}"
+  tags:
+    - remote

@@ -1,0 +1,12 @@
+---
+- name: assets | compile assets locally
+  local_action: command npm run dist
+  tags:
+    - remote
+
+- name: assets | upload assets
+  copy:
+    src: "{{ local_app_dir }}/public/index.js"
+    dest: "{{ release_dir }}/public/index.js"
+  tags:
+    - remote

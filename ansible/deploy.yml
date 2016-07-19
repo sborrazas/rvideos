@@ -1,9 +1,7 @@
 ---
-- hosts: staging:production
+- hosts: all
   remote_user: "{{ user }}"
-  sudo_user: "{{ user }}"
   vars:
-    base_dir: "{{ app_dir | dirname }}"
     repo_version: "master"
   roles:
-    - role: deploy
+    - role: "deploy"
