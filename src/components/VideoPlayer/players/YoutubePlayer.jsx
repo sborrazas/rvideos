@@ -6,7 +6,7 @@ module.exports = React.createClass({
   render: function () {
     var video = this.props.video;
 
-    return (<div id={video.id} className="videoPlayer-player"></div>);
+    return (<div id={video.id} className="videoPlayer-player" ref="base" />);
   },
   componentDidMount: function () {
     if (this._player) {
@@ -19,7 +19,7 @@ module.exports = React.createClass({
     }
     else {
       var youtubeID = this.props.video.providerID
-        , player = new YoutubePlayer(youtubeID, this.getDOMNode());
+        , player = new YoutubePlayer(youtubeID, this.refs["base"]);
 
       player.on("ended", function () {
         View.videoEnded();

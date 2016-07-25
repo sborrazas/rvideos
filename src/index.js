@@ -6,7 +6,7 @@ var React = require("react")
   , View = require("./services/View.js")
   , title = global.getTitle();
 
-require ("./less/application.less");
+require("./less/application.less");
 
 registerComponent("videoPlayer", VideoPlayer);
 

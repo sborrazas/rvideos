@@ -5,9 +5,9 @@ module.exports = {
   VIDEOS_PRELOAD_COUNT: 10,
   GOOGLE_FEED_API_URL: "http://ajax.googleapis.com/ajax/services/feed/load",
   YOUTUBE_FEED_URL: "http://gdata.youtube.com/feeds/api/standardfeeds/most_popular",
-  VIMEO_CHANNEL_URL: "http://vimeo.com/api/v2/channel/%s/videos.json",
+  VIMEO_CHANNEL_URL: "https://vimeo.com/api/v2/channel/%s/videos.json",
   VIMEO_CHANNEL: "staffpicks",
-  VIMEO_PLAYER_URL: "//player.vimeo.com/video/%s",
+  VIMEO_PLAYER_URL: "https://player.vimeo.com/video/%s",
   VIDEO_PROVIDERS: [
     {
       provider: "youtube",

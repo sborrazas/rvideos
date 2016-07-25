@@ -28,12 +28,12 @@ module.exports = React.createClass({
       <iframe className="videoPlayer-player videoPlayer-player--vimeo"
               width="100%" height="100%" src={url} frameBorder="0"
               webkitAllowFullscreen="0" mozAllowFullScreen="0"
-              allowFullScreen="0"></iframe>
+              ref="base" allowFullScreen="0"></iframe>
     );
   },
   componentDidMount: function () {
     var self = this
-      , el = self.getDOMNode()
+      , el = self.refs["base"]
       , dimensions = domStyle.getContentBox(el);
 
     domAttr.set(el, "height", (dimensions.height + OUTER_MARGIN * 2));
@@ -65,7 +65,7 @@ module.exports = React.createClass({
     this._sendPlayerMessage("pause");
   },
   _sendPlayerMessage: function (action, value) {
-    var el = this.getDOMNode()
+    var el = this.refs["base"]
       , url = el.src.split("?")[0]
       , data = { method: action };
 

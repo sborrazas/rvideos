@@ -35,7 +35,12 @@ module.exports = React.createClass({
 
     return (
       <div>
-        <ReactCSSTransitionGroup transitionName="anim_fadeIn" component="div">
+        <ReactCSSTransitionGroup
+          transitionName="anim_fadeIn"
+          component="div"
+          transitionEnterTimeout={3000}
+          transitionLeaveTimeout={3000}>
+
           {controls}
         </ReactCSSTransitionGroup>
       </div>

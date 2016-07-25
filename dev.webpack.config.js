@@ -1,4 +1,5 @@
 var path = require("path");
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var WebpackIsomorphicToolsPlugin = require("webpack-isomorphic-tools/plugin");
 var webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(
   require("./webpack.isomorphictools.config.js")
@@ -63,4 +64,12 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new ExtractTextPlugin(
+      path.join("stylesheets", "[name].css"),
+      {
+        allChunks: true,
+      }
+    ),
+  ],
 };
