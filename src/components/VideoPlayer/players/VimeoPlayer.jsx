@@ -77,7 +77,9 @@ module.exports = React.createClass({
       data.value = value;
     }
 
-    el.contentWindow.postMessage(JSON.stringify(data), url);
+    if (el.contentWindow) {
+      el.contentWindow.postMessage(JSON.stringify(data), url);
+    }
   },
   _subscribeToEvents: function () {
     this._sendPlayerMessage("addEventListener", "finish");
