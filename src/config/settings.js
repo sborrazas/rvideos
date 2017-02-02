@@ -21,5 +21,10 @@ module.exports = {
       provider: "vimeo",
       pattern: /https?:\/\/vimeo\.com\/(\d+)/
     }
-  ]
+  ],
+  NAME: "Videos Worth Watching",
+  TAGLINE: "Curated videos — Made by Form & Function",
+  DESCRIPTION: "Watch the best videos of the day curated by Youtube, Vimeo and Reddit.",
+  KEYWORDS: "best, youtube, reddit, videos, day, vimeo, picks, zapping, player",
+  AUTHORS: "Sebastian Borrazas, Santiago Alonso",
 };

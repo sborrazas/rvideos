@@ -1,36 +1,54 @@
-var React = require("react")
-  , VideoPlayer = require("./components/VideoPlayer.jsx")
-  , registerComponent = require("./utils/dom/registerComponent.js")
-  , global = require("./utils/dom/global.js")
-  , VideosStore = require("./stores/VideosStore.js")
-  , View = require("./services/View.js")
-  , title = global.getTitle();
+import React from "react";
+import _ from "lodash";
+import ReactDOM from "react-dom";
+import ReactDOMServer from "react-dom/server";
+import VideoPlayer from "./components/VideoPlayer.jsx";
+import StaticApp from "components/StaticApp.jsx";
+import View from "./services/View.js";
+import registerComponent from "./utils/dom/registerComponent.js";
+import global from "./utils/dom/global.js";
+import VideosStore from "./stores/VideosStore.js";
 
 require("./less/application.less");
 
-registerComponent("videoPlayer", VideoPlayer);
+// Client render
+if (typeof document !== "undefined") {
+  const title = global.getTitle();
 
-View.init();
+  registerComponent("videoPlayer", VideoPlayer);
 
-global.onArrowLeftPressed(function () {
-  View.prevVideo();
-});
+  View.init();
 
-global.onArrowRightPressed(function () {
-  View.nextVideo();
-});
+  global.onArrowLeftPressed(function () {
+    View.prevVideo();
+  });
 
-global.onSpacebarPressed(function () {
-  View.togglePlay();
-});
+  global.onArrowRightPressed(function () {
+    View.nextVideo();
+  });
 
-VideosStore.onChange(function () {
-  var video = VideosStore.getCurrentVideo();
+  global.onSpacebarPressed(function () {
+    View.togglePlay();
+  });
 
-  if (video) {
-    global.setTitle([title, video.title].join(" — "));
-  }
-  else {
-    global.setTitle(title);
-  }
-});
+  VideosStore.onChange(function () {
+    var video = VideosStore.getCurrentVideo();
+
+    if (video) {
+      global.setTitle([title, video.title].join(" — "));
+    }
+    else {
+      global.setTitle(title);
+    }
+  });
+}
+
+// Exported static site renderer:
+export default (locals, callback) => {
+  const props = { locals: locals };
+  const content = ReactDOMServer.renderToStaticMarkup(
+    React.createElement(StaticApp, props)
+  );
+
+  callback(null, content);
+};

@@ -6,6 +6,10 @@ var webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(
   require("./webpack.isomorphictools.config.js")
 );
 
+const PATHS = [
+  "/",
+];
+
 module.exports = {
   entry: path.join(__dirname, "src", "index.js"),
   // Add resolve.extensions.
@@ -38,7 +42,7 @@ module.exports = {
         test: /\.less$/,
         loader: ExtractTextPlugin.extract(
           "style",
-          "css!less"
+          "css?importLoaders=2!autoprefixer-loader?browsers=last 2 versions!less?outputStyle=expanded&sourceMapContents=true"
         ),
       },
       {
@@ -67,10 +71,15 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin(
-      path.join("stylesheets", "[name].css"),
+      path.join("stylesheets", "application.css"),
       {
         allChunks: true,
       }
     ),
+    new StaticSiteGeneratorPlugin("main", PATHS, {
+      stylesheets: [
+        "stylesheets/application.css",
+      ],
+    }),
   ],
 };

@@ -1,5 +1,4 @@
 var path = require("path");
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var WebpackIsomorphicToolsPlugin = require("webpack-isomorphic-tools/plugin");
 var webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(
   require("./webpack.isomorphictools.config.js")
@@ -35,10 +34,7 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract(
-          "style",
-          "css!less"
-        ),
+        loader: "style!css?importLoaders=2&localIdentName=[local]___[hash:base64:5]!autoprefixer?browsers=last 2 version!less?outputStyle=expanded",
       },
       {
         test: webpackIsomorphicToolsPlugin.regular_expression("images"),
@@ -64,12 +60,4 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new ExtractTextPlugin(
-      path.join("stylesheets", "[name].css"),
-      {
-        allChunks: true,
-      }
-    ),
-  ],
 };
